@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>虚无之地</title>
+  <title>两数之和 | 虚无之地</title>
   <meta name="keywords" content="">
-  <meta name="description" content="虚无之地">
+  <meta name="description" content="两数之和 | 虚无之地">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="虚无之地">
@@ -47,7 +47,7 @@
 </div>
 
 <body>
-<aside class="nav mobile">
+<aside class="nav">
     <div class="nav-left">
         <a href="/" class="avatar_target">
     <img class="avatar" src="/img/avatar.jpg" />
@@ -176,12 +176,51 @@
         </div>
     </div>
 </aside>
-<div class="post index">
+<div class="post">
     <div class="pjax">
-        <article class="index">
-            <div class="toc-ref">
+        <article id="post-两数之和" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Why-Blog"><span class="toc-text">Why Blog</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#关于虚无之地"><span class="toc-text">关于虚无之地</span></a></li></ol></li></ol>
+        <h1 class="article-title">两数之和</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a  data-rel="LeetCode">LeetCode</a>
+            
+        </span>
+        
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2019-12-06 09:10:43'>2019-12-06 08:43</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>字数:488</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#暴力解法"><span class="toc-text">暴力解法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#利用HashMap"><span class="toc-text">利用HashMap</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#总结一下"><span class="toc-text">总结一下</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -194,13 +233,66 @@
     }
 </style>
 </div>
-            <h1 id="Why-Blog"><a href="#Why-Blog" class="headerlink" title="Why Blog"></a>Why Blog</h1><h2 id="关于虚无之地"><a href="#关于虚无之地" class="headerlink" title="关于虚无之地"></a>关于虚无之地</h2><p><strong>虚无之地</strong> 是逸川同学的个人站。</p>
-<p>到目前为止已经写了<code class="article_number"></code>篇文章， 共<code class="site_word_count"></code>字。</p>
-<p>本站访问人数：<code class="site_uv"></code>人次 ， 访问量：<code class="site_pv"></code>次</p>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>链接：<a href="https://leetcode-cn.com/problems/two-sum" target="_blank" rel="noopener">https://leetcode-cn.com/problems/two-sum</a></p>
+</blockquote>
+<blockquote>
+<p>给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。</p>
+<p>你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。</p>
+<p>示例:</p>
+<p>给定 nums = [2, 7, 11, 15], target = 9</p>
+<p>因为 nums[0] + nums[1] = 2 + 7 = 9<br>所以返回 [0, 1]</p>
+</blockquote>
+<p>第一道题，八次提交，三次解答错误，一次编译错误</p>
+<p>我写了两种解法</p>
+<h1 id="暴力解法"><a href="#暴力解法" class="headerlink" title="暴力解法"></a>暴力解法</h1><p>这个简单，不过时间复杂度时O(N^2)，空间复杂度时O(1)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;nums.length-<span class="number">1</span>; i++) &#123;</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> j = i+<span class="number">1</span>; j&lt;nums.length; j++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(nums[i] + nums[j] == target) &#123;</span><br><span class="line">          <span class="comment">// 题目说明只有一个返回值，所以直接就可以返回了  </span></span><br><span class="line">          <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;i, j&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">""</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-        </article>
-        
-        
+<p><img src="C:%5CUsers%5C%E9%80%B8%E5%B7%9D%E5%90%8C%E5%AD%A6%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20191206085247799.png" alt="image-20191206085247799"></p>
+<h1 id="利用HashMap"><a href="#利用HashMap" class="headerlink" title="利用HashMap"></a>利用HashMap</h1><p>其实我们只需要遍历一次这个nums，然后将nums[i]作为key、i作为value放到HashMap中，在放之前，检查一下又没有一个key是等于target-num[i]的，如果等于，就可以立马返回结果了</p>
+<p>这样的时间复杂度是O(N)，空间复杂度是O(N)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">  public int[] twoSum(int[] nums, int target) &#123;</span><br><span class="line">    Map&lt;Integer,Integer&gt; map = new HashMap&lt;&gt;();</span><br><span class="line">    map.put(nums[0],0);</span><br><span class="line">    for(int i = 1; i&lt;nums.length; i++) &#123;</span><br><span class="line">      if(map.containsKey(target-nums[i])) &#123;</span><br><span class="line">        return new int[]&#123;map.get(target-nums[i]),i&#125;;</span><br><span class="line">      &#125;</span><br><span class="line">      map.put(nums[i],i);</span><br><span class="line">    &#125;</span><br><span class="line">    throw new RuntimeException(&quot;&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="C:%5CUsers%5C%E9%80%B8%E5%B7%9D%E5%90%8C%E5%AD%A6%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20191206085833387.png" alt="image-20191206085833387"></p>
+<hr>
+<h6 id="总结一下"><a href="#总结一下" class="headerlink" title="总结一下"></a>总结一下</h6><ul>
+<li>上一次做ACM – HDOJ 已经是一年半以前了，十分生疏</li>
+<li>过度依赖IDE，第一次提交前编译错误了3次！</li>
+<li>审题不仔细，竟然忽略了每种输入只有一个答案这样的关键字，导致自己写了一个可变数组</li>
+</ul>
+<p>继续加油，每天进步一点点！</p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 欢迎转载，请注明来源。有问题的朋友可以邮件至barry.ppz@foxmail.com </span>
+    </div>
+</article>
+
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>两数之和</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">488</span></p>
+    <p><span class="copy-title">本文作者:</span><a  title="逸川同学">逸川同学</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-12-06, 08:43:47</p>
+    <p><span class="copy-title">最后更新:</span>2019-12-06, 09:10:43</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/12/06/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/" title="两数之和">http://yoursite.com/2019/12/06/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+
+    
+
+
+
+
     </div>
     <div class="copyright">
         <p class="footer-entry">©2019 逸川同学</p>
