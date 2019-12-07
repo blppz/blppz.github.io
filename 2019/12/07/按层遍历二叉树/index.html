@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>两数之和 | 虚无之地</title>
-  <meta name="keywords" content=" LeetCode , 数组 , 哈希表 ">
-  <meta name="description" content="两数之和 | 虚无之地">
+  <title>按层遍历二叉树 | 虚无之地</title>
+  <meta name="keywords" content=" 二叉树 ">
+  <meta name="description" content="按层遍历二叉树 | 虚无之地">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;two-sum  题目 给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。 你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。 示例: 给定 nums = [2, 7, 11, 15], target = 9 因为 nums">
 <meta name="keywords" content="LeetCode,数组,哈希表">
@@ -217,9 +217,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-两数之和" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-按层遍历二叉树" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">两数之和</h1>
+        <h1 class="article-title">按层遍历二叉树</h1>
     
     <div class="article-meta">
         
@@ -227,30 +227,26 @@
         
         <span class="book">
             
-                <a  data-rel="LeetCode">LeetCode</a>
+                <a  data-rel="数据结构与算法">数据结构与算法</a>
             
         </span>
         
         
         <span class="tag">
             
-            <a class="color4">LeetCode</a>
-            
-            <a class="color3">数组</a>
-            
-            <a class="color4">哈希表</a>
+            <a class="color4">二叉树</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-12-06 09:48:14'>2019-12-06 08:43</time>
+        创建时间:<time class="date" title='更新时间: 2019-12-07 11:48:37'>2019-12-07 11:04</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:490</span>
+        <span>字数:939</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -269,7 +265,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#暴力解法"><span class="toc-text">暴力解法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#利用HashMap"><span class="toc-text">利用HashMap</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结一下"><span class="toc-text">总结一下</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#按层遍历二叉树"><span class="toc-text">按层遍历二叉树</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#一、不打印当前层次"><span class="toc-text">一、不打印当前层次</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二、打印当前层次"><span class="toc-text">二、打印当前层次</span></a></li></ol></li></ol></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -285,34 +281,58 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p>链接：<a href="https://leetcode-cn.com/problems/two-sum" target="_blank" rel="noopener">https://leetcode-cn.com/problems/two-sum</a></p>
-</blockquote>
-<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><blockquote>
-<p>给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。</p>
-<p>你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。</p>
-<p>示例:</p>
-<p>给定 nums = [2, 7, 11, 15], target = 9</p>
-<p>因为 nums[0] + nums[1] = 2 + 7 = 9<br>所以返回 [0, 1]</p>
-</blockquote>
-<p>第一道题，八次提交，三次解答错误，一次编译错误</p>
-<p>我写了两种解法</p>
-<h1 id="暴力解法"><a href="#暴力解法" class="headerlink" title="暴力解法"></a>暴力解法</h1><p>这个简单，不过时间复杂度时O(N^2)，空间复杂度时O(1)</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;nums.length-<span class="number">1</span>; i++) &#123;</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> j = i+<span class="number">1</span>; j&lt;nums.length; j++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(nums[i] + nums[j] == target) &#123;</span><br><span class="line">          <span class="comment">// 题目说明只有一个返回值，所以直接就可以返回了  </span></span><br><span class="line">          <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;i, j&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">""</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h1 id="按层遍历二叉树"><a href="#按层遍历二叉树" class="headerlink" title="按层遍历二叉树"></a>按层遍历二叉树</h1><p><strong>准备工作</strong></p>
+<p>1.一个Node节点类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @Deacription 二叉树节点</span><br><span class="line"> * @Author BarryLee</span><br><span class="line"> * @Date 2019/12/7 9:11</span><br><span class="line"> */</span><br><span class="line">public class Node &#123;</span><br><span class="line">  public int value;</span><br><span class="line">  public Node left;</span><br><span class="line">  public Node right;</span><br><span class="line">  public Node(int value) &#123;</span><br><span class="line">    this.value = value;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://i.loli.net/2019/12/06/ZKFursHv2mbqQTJ.png" alt="image-20191206085247799.png"></p>
-<h1 id="利用HashMap"><a href="#利用HashMap" class="headerlink" title="利用HashMap"></a>利用HashMap</h1><p>其实我们只需要遍历一次这个nums，然后将nums[i]作为key、i作为value放到HashMap中，在放之前，检查一下又没有一个key是等于target-num[i]的，如果等于，就可以立马返回结果了</p>
-<p>这样的时间复杂度是O(N)，空间复杂度是O(N)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">  public int[] twoSum(int[] nums, int target) &#123;</span><br><span class="line">    Map&lt;Integer,Integer&gt; map = new HashMap&lt;&gt;();</span><br><span class="line">    map.put(nums[0],0);</span><br><span class="line">    for(int i = 1; i&lt;nums.length; i++) &#123;</span><br><span class="line">      if(map.containsKey(target-nums[i])) &#123;</span><br><span class="line">        return new int[]&#123;map.get(target-nums[i]),i&#125;;</span><br><span class="line">      &#125;</span><br><span class="line">      map.put(nums[i],i);</span><br><span class="line">    &#125;</span><br><span class="line">    throw new RuntimeException(&quot;&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2.初始化一棵树用于测试（可以画一下看看，很简单，这里省略）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Node head;</span><br><span class="line">@Before</span><br><span class="line">public void before() &#123;</span><br><span class="line">  // 先构建一棵树</span><br><span class="line">  head = new Node(1);</span><br><span class="line">  head.left = new Node(2);</span><br><span class="line">  head.right = new Node(3);</span><br><span class="line">  head.left.left = new Node(4);</span><br><span class="line">  head.right.left = new Node(5);</span><br><span class="line">  head.right.right = new Node(6);</span><br><span class="line">  head.right.left.left = new Node(7);</span><br><span class="line">  head.right.right.right = new Node(8);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://i.loli.net/2019/12/06/6iT2Ra4knGIvXBZ.png" alt=" 6iT2Ra4knGIvXBZ.png "></p>
+
+
+<h4 id="一、不打印当前层次"><a href="#一、不打印当前层次" class="headerlink" title="一、不打印当前层次"></a>一、不打印当前层次</h4><p>思路很简单，因为是按层来进行遍历，那肯定是使用队列（先进先出的原理）来实现了</p>
+<p>1.先将头节点head放进队列</p>
+<p>2.while循环遍历这个队列</p>
+<p>3.poll拿出队列里的第一个节点cur</p>
+<p>4.如果cur的左子节点不为空，放进队列</p>
+<p>5.如果cur的右子节点不为空，放进队列</p>
+<p>6.打印cur的值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void test1() &#123;</span><br><span class="line">  Queue&lt;Node&gt; queue = new LinkedList&lt;&gt;();</span><br><span class="line">  queue.add(head);</span><br><span class="line">  while(queue.size()&gt;0) &#123;</span><br><span class="line">    Node cur = queue.poll();</span><br><span class="line">    if(cur.left != null) &#123;</span><br><span class="line">      queue.add(cur.left);</span><br><span class="line">    &#125;</span><br><span class="line">    if(cur.right != null) &#123;</span><br><span class="line">      queue.add(cur.right);</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(cur.value);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 2 3 4 5 6 7 8</span><br></pre></td></tr></table></figure>
+
+
+
 <hr>
-<h1 id="总结一下"><a href="#总结一下" class="headerlink" title="总结一下"></a>总结一下</h1><ul>
-<li>上一次做ACM – HDOJ 已经是一年半以前了，十分生疏</li>
-<li>过度依赖IDE，第一次提交前编译错误了3次！</li>
-<li>审题不仔细，竟然忽略了每种输入只有一个答案这样的关键字，导致自己写了一个可变数组</li>
-</ul>
-<p>继续加油，每天进步一点点！</p>
+<h4 id="二、打印当前层次"><a href="#二、打印当前层次" class="headerlink" title="二、打印当前层次"></a>二、打印当前层次</h4><p>基于上一个Demo，这个比不打印层次要复杂一点点，复杂在如何确定换行的时机，其实last和nlast两个变量就可以解决这个问题</p>
+<p><strong>解题思路</strong></p>
+<p>1.初始化变量，重点关注last和nlast</p>
+<p>2.last表示当前行的最后一个节点，nlast表示下一行的最后一个节点</p>
+<p>3.怎么确定last的值: 开始的时候为head没有问题，之后的每一行都是等于nlast</p>
+<p>4.那么问题就变成了怎么确定nlast: 每次放入一个节点我们就把这个节点的子节点作为nlast（必须是从左往右）</p>
+<p><strong>再看一遍执行步骤</strong></p>
+<p>1.初始化参数，last==nlast==head。第一个节点进来队列，然后开始循环</p>
+<p>2.弹出节点cur</p>
+<p>3.如果左子节点不为空则进队列，并且nlast为cur的左子节点</p>
+<p>4.如果右子节点不为空则进队列，并且nlast为cur的右子节点（所以现在的nlast就是head.right了）</p>
+<p>5.打印cur：如果cur==last则换行，现在是头节点，所以换行</p>
+<p>6.然后到了下一行，弹出head.left，重复步骤 3 &amp; 4</p>
+<p>7.注意，这时last是head.right，所以还没到换行的时机，经过上面的操作nlast变成了head.left.right，打印</p>
+<p>8.然后继续遍历，弹出head.right，重复步骤 3 &amp; 4</p>
+<p>9.此时cur==last，该换行了，而nlast也变成了head.right.right</p>
+<p>10.将nlast赋值给last，为什么呢，因为你要进下一行了呀，而下一行的最后一个节点就是nlast</p>
+<p>11.如此反复，AC撒花</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 按层遍历 -- 不打印当前是多少层</span><br><span class="line"> */</span><br><span class="line">@Test</span><br><span class="line">public void test2() &#123;</span><br><span class="line">  Queue&lt;Node&gt; queue = new LinkedList&lt;&gt;();</span><br><span class="line">  queue.add(head);</span><br><span class="line">  // 节点所在层次</span><br><span class="line">  int level = 0;</span><br><span class="line">  // 是否为当前层的第一个</span><br><span class="line">  boolean isFirst = true;</span><br><span class="line">  // 当前打印所在行的最后一个节点</span><br><span class="line">  Node last = head;</span><br><span class="line">  // 下一行的最后一个节点</span><br><span class="line">  Node nlast = head;</span><br><span class="line"></span><br><span class="line">  // 遍历</span><br><span class="line">  while(queue.size()&gt;0) &#123;</span><br><span class="line">    Node cur = queue.poll();</span><br><span class="line"></span><br><span class="line">    if(cur.left != null) &#123;</span><br><span class="line">      queue.add(cur.left);</span><br><span class="line">      nlast = cur.left;</span><br><span class="line">    &#125;</span><br><span class="line">    if(cur.right != null) &#123;</span><br><span class="line">      queue.add(cur.right);</span><br><span class="line">      nlast = cur.right;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if(isFirst) &#123;</span><br><span class="line">      System.out.print(&quot;level&quot; + level + &quot;-&gt;&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    // 当前节点是当前行最后一个节点 -- 换行</span><br><span class="line">    if(last==cur) &#123;</span><br><span class="line">      last = nlast;</span><br><span class="line">      isFirst = true;</span><br><span class="line">      System.out.println(cur.value);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      isFirst = false;</span><br><span class="line">      System.out.print(cur.value + &quot; &quot;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">level0-&gt;1</span><br><span class="line">level0-&gt;2 3</span><br><span class="line">level0-&gt;4 5 6</span><br><span class="line">level0-&gt;7 8</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p><strong><em>每天进步一点点！</em></strong></p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 欢迎转载，请注明来源。有问题的朋友可以邮件至barry.ppz@foxmail.com </span>
@@ -322,12 +342,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>两数之和</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">490</span></p>
+    <p><span class="copy-title">文章标题:</span>按层遍历二叉树</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">939</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="逸川同学">逸川同学</a></p>
-    <p><span class="copy-title">发布时间:</span>2019-12-06, 08:43:47</p>
-    <p><span class="copy-title">最后更新:</span>2019-12-06, 09:48:14</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/12/06/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/" title="两数之和">http://yoursite.com/2019/12/06/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/</a>
+    <p><span class="copy-title">发布时间:</span>2019-12-07, 11:04:37</p>
+    <p><span class="copy-title">最后更新:</span>2019-12-07, 11:48:37</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/12/07/%E6%8C%89%E5%B1%82%E9%81%8D%E5%8E%86%E4%BA%8C%E5%8F%89%E6%A0%91/" title="按层遍历二叉树">http://yoursite.com/2019/12/07/%E6%8C%89%E5%B1%82%E9%81%8D%E5%8E%86%E4%BA%8C%E5%8F%89%E6%A0%91/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
